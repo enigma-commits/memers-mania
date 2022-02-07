@@ -6,16 +6,7 @@ import CreatePost from "./Screens/CreatePost.js";
 import { Box } from "@mui/system";
 import ResponsiveAppBar from "./Components/Navbar/ResponsiveAppBar";
 export default function App() {
-	return (
-		<Box
-			sx={{
-				backgroundColor: "#1c1f20",
-				minHeight: "100vh",
-			}}>
-			<Box component='header' sx={{ position: "sticky", top: 0, zIndex: 50 }}>
-				<ResponsiveAppBar />
-			</Box>
-			<CreatePost />
-		</Box>
-	);
+
+  return <Dashboard />;
+  return <Home />;
 }
