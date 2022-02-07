@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
-import "./App.css";
+import "../App.css";
 import Container from "@mui/material/Container";
 import { TextField, Button } from "@mui/material";
 export function CreatePost() {
