@@ -11,7 +11,7 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import { CardActions } from "@mui/material";
 import "../App.css";
 import Tooltip from "@mui/material/Tooltip";
-export default function Post({image}) {
+export default function Post({ image }) {
 	return (
 		<Card
 			sx={{
