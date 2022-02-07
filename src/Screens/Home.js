@@ -1,5 +1,6 @@
 import React from "react";
 import { Box } from "@mui/system";
+<<<<<<< HEAD
 import ResponsiveAppBar from "../Components/Navbar/ResponsiveAppBar";
 import { CreatePost } from "../Components/CreatePost.js";
 import Post from "../Components/Post";
@@ -28,6 +29,25 @@ const Home = () => {
       </Box>
     </>
   );
+=======
+import { CreatePost } from "../Components/CreatePost.js";
+import Post from "../Components/Post.js";
+
+const Home = () => {
+	return (
+		<>
+			<Box component='body'>
+				<CreatePost />
+				<Post image='./tempimages/1116286.jpg' />
+				<Post image='./tempimages/1123078.jpg' />
+				<Post image='./tempimages/1139591.jpg' />
+				<Post image='./tempimages/1140982.jpg' />
+				<Post image='./tempimages/1141570.png' />
+				<Post image='./tempimages/gojo i will murder you.png' />
+			</Box>
+		</>
+	);
+>>>>>>> feature
 };
 
 export default Home;
