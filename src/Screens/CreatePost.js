@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
+import FileUpload from "react-material-file-upload";
+
 const CreatePost = () => {
+	const [tab, setTab] = useState(0);
+	const [files, setFiles] = useState([]);
+	console.log(files);
+	const func = (e) => {
+		setFiles(e);
+	};
 	return (
-        
 		<>
 			<Container
 				sx={{
@@ -28,11 +35,24 @@ const CreatePost = () => {
 						justifyContent: "space-around",
 					}}>
 					<container>
-						<h3>Text</h3>
-						<Divider sx={{ backgroundColor: "white" }} />
+						<h3
+							onClick={() => {
+								setTab(0);
+							}}>
+							Text
+						</h3>
+						{tab === 0 && <Divider sx={{ backgroundColor: "white" }} />}
 					</container>
 					<container>
-						<h3>Image</h3>
+						<h3
+							onClick={() => {
+								setTab(1);
+							}}
+                            
+                            >
+							Image
+						</h3>
+						{tab === 1 && <Divider sx={{ backgroundColor: "white" }} />}
 					</container>
 				</Container>
 				<Container>
@@ -49,21 +69,37 @@ const CreatePost = () => {
 							backgroundColor: "#948f8f",
 						}}
 					/>
-					<TextField
-						fullWidth
-						id='fullWidth-multiline'
-						size='small'
-						placeholder='Body'
-						multiline
-						rows={4}
-						sx={{
-							marginTop: "8px",
-							height: "100%",
-							width: "100%",
-							borderRadius: "5px",
-							backgroundColor: "#948f8f",
-						}}
-					/>
+					{tab === 0 && (
+						<TextField
+							fullWidth
+							id='fullWidth-multiline'
+							size='small'
+							placeholder='Body'
+							multiline
+							rows={4}
+							sx={{
+								marginTop: "10px",
+								height: "100%",
+								width: "100%",
+								borderRadius: "5px",
+								backgroundColor: "#948f8f",
+							}}
+						/>
+					)}
+					{tab === 1 && (
+						<>
+							<FileUpload
+								value={files}
+								onChange={func}
+								sx={{
+									marginTop: "10px",
+									borderRadius: "5px",
+									backgroundColor: "#948f8f",
+								}}
+							/>
+						</>
+					)}
+
 					<Container sx={{ display: "flex", justifyContent: "flex-end" }}>
 						<Button
 							variant='contained'
