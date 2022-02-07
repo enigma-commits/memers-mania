@@ -22,7 +22,7 @@ export default function Post() {
         borderColor: "red",
       }}
     >
-      <CardActionArea sx={{ backgroundColor: "#d7d3ce" }}>
+      <CardActionArea sx={{ backgroundColor: "#1a1a1b" }}>
         <CardMedia
           component="img"
           image={image}
@@ -30,7 +30,7 @@ export default function Post() {
           alt="green iguana"
         />
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="#d7dadc">
             Lizards are a widespread group of squamate reptiles, with over 6,000
             species, ranging across all continents except Antarctica
           </Typography>
@@ -38,22 +38,31 @@ export default function Post() {
       </CardActionArea>
       <CardActions
         sx={{
-          backgroundColor: "#d7d3ce",
+          backgroundColor: "#1a1a1b",
           display: "flex",
           justifyContent: "space-around",
         }}
       >
         <Box>
           <IconButton>
-            <ArrowUpwardOutlinedIcon fontSize="large" />
+            <ArrowUpwardOutlinedIcon
+              fontSize="large"
+              sx={{ color: "#7f8182" }}
+            />
           </IconButton>
           <IconButton>
-            <ArrowDownwardOutlinedIcon fontSize="large" />
+            <ArrowDownwardOutlinedIcon
+              fontSize="large"
+              sx={{ color: "#7f8182" }}
+            />
           </IconButton>
         </Box>
         <Box>
           <IconButton>
-            <ModeCommentOutlinedIcon fontSize="large" />
+            <ModeCommentOutlinedIcon
+              fontSize="large"
+              sx={{ color: "#7f8182" }}
+            />
           </IconButton>
         </Box>
       </CardActions>
