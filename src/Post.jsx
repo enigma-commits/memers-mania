@@ -1,5 +1,6 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
+import { Box } from "@mui/system";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
@@ -42,15 +43,19 @@ export default function Post() {
           justifyContent: "space-around",
         }}
       >
-        <IconButton>
-          <ArrowUpwardOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <ArrowDownwardOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <ModeCommentOutlinedIcon />
-        </IconButton>
+        <Box>
+          <IconButton>
+            <ArrowUpwardOutlinedIcon fontSize="large" />
+          </IconButton>
+          <IconButton>
+            <ArrowDownwardOutlinedIcon fontSize="large" />
+          </IconButton>
+        </Box>
+        <Box>
+          <IconButton>
+            <ModeCommentOutlinedIcon fontSize="large" />
+          </IconButton>
+        </Box>
       </CardActions>
     </Card>
   );
