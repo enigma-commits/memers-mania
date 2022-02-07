@@ -1,5 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
+import "./App.css";
 import { TextField, Button, Input } from "@mui/material";
 export function CreatePost() {
   return (
@@ -10,7 +11,12 @@ export function CreatePost() {
       <TextField
         id="outlined-basic"
         variant="outlined"
-        sx={{ width: "50%", backgroundColor: "#d7d3ce", border: "10px black" }}
+        label="create post"
+        sx={{
+          width: "50%",
+          backgroundColor: "#d7d3ce",
+          border: "10px black",
+        }}
       />
       <Button variant="contained" sx={{ width: "5%", mr: "1%", ml: "1%" }}>
         Post
