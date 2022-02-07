@@ -9,6 +9,7 @@ import ArrowUpwardOutlinedIcon from "@mui/icons-material/ArrowUpwardOutlined";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import { CardActions } from "@mui/material";
 import "./App.css";
+import image from "./tempimages/1116286.jpg";
 export default function Post() {
   return (
     <Card
@@ -20,17 +21,14 @@ export default function Post() {
         borderColor: "red",
       }}
     >
-      <CardActionArea>
+      <CardActionArea sx={{ backgroundColor: "#d7d3ce" }}>
         <CardMedia
           component="img"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image={image}
+          height="400"
           alt="green iguana"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
-          </Typography>
           <Typography variant="body2" color="text.secondary">
             Lizards are a widespread group of squamate reptiles, with over 6,000
             species, ranging across all continents except Antarctica
