@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { CreatePost } from "../Components/CreatePost.js";
 import Post from "../Components/Post.js";
 
-const Home = () => {
+const HomeScreen = () => {
 	return (
 		<>
 			<Box component='body'>
@@ -19,4 +19,5 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default HomeScreen;
+
