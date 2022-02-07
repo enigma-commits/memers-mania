@@ -6,9 +6,9 @@ import Container from "@mui/material/Container";
 import { TextField, Button } from "@mui/material";
 export function CreatePost() {
 	return (
-		<Box
+		<Container
 			sx={{
-				maxWidth: "50%",
+				width: "50%",
 				ml: "25%",
 				mt: "2%",
 				border: "15px",
@@ -17,6 +17,7 @@ export function CreatePost() {
 				display: "flex",
 				justifyContent: "space-evenly",
 				borderRadius: "5px",
+				padding: "10px",
 			}}>
 			<Avatar
 				sx={{
@@ -42,6 +43,6 @@ export function CreatePost() {
 				sx={{ width: "5%", mr: "1%", ml: "1%", mt: "10px", height: "5%" }}>
 				Post
 			</Button>
-		</Box>
+		</Container>
 	);
 }
