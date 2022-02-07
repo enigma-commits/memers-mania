@@ -1,21 +1,50 @@
 import { Box } from "@mui/system";
-import { Typography } from "@mui/material";
+import { IconButton, Typography, Divider, Grid } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import UserPost from "./UserPost";
 export function Profile({ image }) {
   return (
-    <Box variant="div">
-      <Box component="header" sx={{ display: "flex", ml: "10%", mr: "10%" }}>
-        <Box component="div" sx={{ flexGrow: "1", flexBasis: "0", mr: "15%" }}>
+    <Box variant="div" sx={{ ml: "10%", mr: "10%" }}>
+      <Box
+        component="header"
+        sx={{ display: "flex", mt: "5%", ml: "10%", mr: "0%", mb: "4%" }}
+      >
+        <Box component="div" sx={{ flexGrow: "1", flexBasis: "0%", mr: "15%" }}>
           <img
             src={image}
             alt="profile"
-            width="100%"
-            height="auto"
-            style={{ borderRadius: "60px" }}
+            width="150px"
+            height="150px"
+            style={{ borderRadius: "75px" }}
           />
         </Box>
         <Box component="section" sx={{ pl: "0%", flexGrow: "2" }}>
-          <Typography variant="h4">This is akhilesh singh bhadauria</Typography>
+          <Typography variant="h4" sx={{ color: "#e6ebe7" }}>
+            This is akhilesh singh bhadauria
+          </Typography>
         </Box>
+        <Box>
+          <IconButton>
+            <LogoutIcon fontSize="large" sx={{ color: "#e6ebe7" }} />
+          </IconButton>
+        </Box>
+      </Box>
+      <Divider sx={{ backgroundColor: "#e6ebe7" }} />
+      <Box>
+        <Grid container columnGap={3} rowGap={2} sx={{ mt: "3%", ml: "15%" }}>
+          <Grid item xs={4}>
+            <UserPost />
+          </Grid>
+          <Grid item xs={4}>
+            <UserPost />
+          </Grid>
+          <Grid item xs={4}>
+            <UserPost />
+          </Grid>
+          <Grid item xs={4}>
+            <UserPost />
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );
