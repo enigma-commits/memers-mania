@@ -3,6 +3,7 @@ import { IconButton, Typography, Divider, Grid } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import UserPost from "./UserPost";
 export function Profile({ image }) {
+
   return (
     <Box variant="div" sx={{ ml: "10%", mr: "10%" }}>
       <Box
