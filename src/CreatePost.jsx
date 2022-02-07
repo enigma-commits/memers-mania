@@ -1,42 +1,48 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
 import "./App.css";
-import { TextField, Button, Input } from "@mui/material";
+import Container from "@mui/material/Container";
+import { TextField, Button } from "@mui/material";
 export function CreatePost() {
 	return (
-		<Box
+		<Container
 			sx={{
-				width: "100vw",
-				marginLeft: "-10px",
-				marginTop: "-10px",
-				height: "50px",
+				width: "50%",
+				ml: "25%",
+				mt: "2%",
+				border: "15px",
+				borderColor: "red",
 				backgroundColor: "#1a1a1b",
 				display: "flex",
-				justifyContent: "center",
+				justifyContent: "space-evenly",
+				borderRadius: "5px",
+				padding: "10px",
 			}}>
-			<TextField
-				id='outlined-basic'
-				variant='outlined'
-				label='create post'
+			<Avatar
 				sx={{
-					width: "50%",
-					backgroundColor: "#d7d3ce",
-					border: "10px black",
+					marginTop: "8px",
 				}}
 			/>
-			<Button variant='contained' sx={{ width: "5%", mr: "1%", ml: "1%" }}>
+
+			<TextField
+				fullWidth
+				id='fullWidth'
+				size='small'
+				placeholder='Create Post'
+				sx={{
+					marginTop: "8px",
+					height: "100%",
+					width: "50%",
+					borderRadius: "5px",
+					backgroundColor: "#bdbdbd",
+				}}
+			/>
+			<Button
+				variant='contained'
+				sx={{ width: "5%", mr: "1%", ml: "1%", mt: "10px", height: "5%" }}>
 				Post
 			</Button>
-			<Input
-				accept='image/*'
-				id='contained-button-file'
-				multiple
-				type='file'
-				sx={{ backgroundColor: "#d7d3ce" }}
-			/>
-			<Button variant='contained' component='span' sx={{ mr: "1%", ml: "1%" }}>
-				Upload
-			</Button>
-		</Box>
+		</Container>
 	);
 }
