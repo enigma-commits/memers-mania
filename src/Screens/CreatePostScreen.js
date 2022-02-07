@@ -5,12 +5,13 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import FileUpload from "react-material-file-upload";
 
-const CreatePost = () => {
+const CreatePostScreen = () => {
 	const [tab, setTab] = useState(0);
-	const [files, setFiles] = useState([]);
-	console.log(files);
+	const [postTitle, setPostTitle] = useState("");
+	const [postBody, setPostBody] = useState("");
+	const [postImage, setPostImage] = useState([]);
 	const func = (e) => {
-		setFiles(e);
+		setPostImage(e);
 	};
 	return (
 		<>
@@ -47,9 +48,7 @@ const CreatePost = () => {
 						<h3
 							onClick={() => {
 								setTab(1);
-							}}
-                            
-                            >
+							}}>
 							Image
 						</h3>
 						{tab === 1 && <Divider sx={{ backgroundColor: "white" }} />}
@@ -61,12 +60,16 @@ const CreatePost = () => {
 						id='fullWidth'
 						size='small'
 						placeholder='Title'
+						value={postTitle}
 						sx={{
 							marginTop: "8px",
 							height: "100%",
 							width: "100%",
 							borderRadius: "5px",
 							backgroundColor: "#948f8f",
+						}}
+						onChange={(e) => {
+							setPostTitle(e.target.value);
 						}}
 					/>
 					{tab === 0 && (
@@ -77,6 +80,7 @@ const CreatePost = () => {
 							placeholder='Body'
 							multiline
 							rows={4}
+							value={postBody}
 							sx={{
 								marginTop: "10px",
 								height: "100%",
@@ -84,12 +88,15 @@ const CreatePost = () => {
 								borderRadius: "5px",
 								backgroundColor: "#948f8f",
 							}}
+							onChange={(e) => {
+								setPostBody(e.target.value);
+							}}
 						/>
 					)}
 					{tab === 1 && (
 						<>
 							<FileUpload
-								value={files}
+								value={postImage}
 								onChange={func}
 								sx={{
 									marginTop: "10px",
@@ -100,7 +107,8 @@ const CreatePost = () => {
 						</>
 					)}
 
-					<Container sx={{ display: "flex", justifyContent: "flex-end" }}>
+					<Container
+						sx={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
 						<Button
 							variant='contained'
 							sx={{
@@ -117,4 +125,4 @@ const CreatePost = () => {
 	);
 };
 
-export default CreatePost;
+export default CreatePostScreen;
