@@ -17,10 +17,12 @@ const Home = () => {
 				</Box>
 				<Box component='body'>
 					<CreatePost />
-					<Post />
-					<Post />
-					<Post />
-					<Post />
+					<Post image='./tempimages/1116286.jpg' />
+					<Post image='./tempimages/1123078.jpg' />
+					<Post image='./tempimages/1139591.jpg' />
+					<Post image='./tempimages/1140982.jpg' />
+					<Post image='./tempimages/1141570.png' />
+					<Post image='./tempimages/gojo i will murder you.png' />
 				</Box>
 			</Box>
 		</>
