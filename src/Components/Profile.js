@@ -3,9 +3,18 @@ import { IconButton, Typography, Divider, Grid } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import UserPost from "./UserPost";
 export function Profile({ image }) {
-
   return (
-    <Box variant="div" sx={{ ml: "10%", mr: "10%" }}>
+    <Box
+      variant="div"
+      sx={{
+        ml: "25%",
+        mr: "25%",
+        mt: "1%",
+        pt: "1%",
+        pb: "5%",
+        backgroundColor: "#242424",
+      }}
+    >
       <Box
         component="header"
         sx={{ display: "flex", mt: "5%", ml: "10%", mr: "0%", mb: "4%" }}
