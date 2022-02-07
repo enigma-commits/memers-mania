@@ -11,8 +11,7 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import { CardActions } from "@mui/material";
 import "../App.css";
 import Tooltip from "@mui/material/Tooltip";
-import image from "./tempimages/1116286.jpg";
-export default function Post() {
+export default function Post({image}) {
 	return (
 		<Card
 			sx={{
@@ -26,7 +25,7 @@ export default function Post() {
 				<CardMedia
 					component='img'
 					image={image}
-					height='400'
+					maxHeight='400'
 					alt='green iguana'
 				/>
 				<CardContent>
