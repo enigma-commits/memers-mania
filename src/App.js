@@ -11,7 +11,7 @@ export default function App() {
         minHeight: "100vh",
       }}
     >
-      <Box component="header" sx={{ position: "sticky", top: 0 }}>
+      <Box component="header" sx={{ position: "sticky", top: 0, zIndex: 50 }}>
         <ResponsiveAppBar />
       </Box>
       <Box component="body">
