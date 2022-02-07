@@ -35,14 +35,20 @@ export default function Post() {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions sx={{ backgroundColor: "#121212" }}>
-        <IconButton className={"icon"}>
+      <CardActions
+        sx={{
+          backgroundColor: "#d7d3ce",
+          display: "flex",
+          justifyContent: "space-around",
+        }}
+      >
+        <IconButton>
           <ArrowUpwardOutlinedIcon />
         </IconButton>
-        <IconButton sx={{ ml: "2%" }} className={"icon"}>
+        <IconButton>
           <ArrowDownwardOutlinedIcon />
         </IconButton>
-        <IconButton sx={{ ml: "5%" }} className={"icon"}>
+        <IconButton>
           <ModeCommentOutlinedIcon />
         </IconButton>
       </CardActions>
