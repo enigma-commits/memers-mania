@@ -34,25 +34,21 @@ const postSchema = mongoose.Schema(
 		},
 		body: {
 			type: String,
-			required: true,
 		},
 		image: {
 			type: String,
 		},
 		upVote: {
 			type: Number,
-			required: true,
 			default: 0,
 		},
 		downVote: {
 			type: Number,
-			required: true,
 			default: 0,
 		},
 		comments: [commentSchema],
 		numComments: {
 			type: Number,
-			required: true,
 			default: 0,
 		},
 	},

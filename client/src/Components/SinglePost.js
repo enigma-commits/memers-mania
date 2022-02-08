@@ -12,7 +12,7 @@ import { Container, Avatar, TextField, Button } from "@mui/material";
 import { CardActions } from "@mui/material";
 import "../App.css";
 import Tooltip from "@mui/material/Tooltip";
-export default function SinglePost(props) {
+const SinglePost=({post})=> {
   const inputEl = useRef(null);
   const focusOnCommentBox = (event) => {
     console.log("focus on comment box called");
@@ -32,7 +32,7 @@ export default function SinglePost(props) {
         <CardActionArea sx={{ padding: "5px", borderRadius: "5px" }}>
           <CardMedia
             component="img"
-            image={props.image}
+            image={post.image}
             maxHeight="400"
             alt="green iguana"
           />
@@ -126,3 +126,6 @@ export default function SinglePost(props) {
     </Box>
   );
 }
+
+
+export default SinglePost;

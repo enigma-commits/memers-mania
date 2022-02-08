@@ -18,7 +18,6 @@ const HomeScreen = (props) => {
 			setPosts(data);
 		};
 		fetchPosts();
-		console.log("first");
 	}, []);
 
 	return (
@@ -26,7 +25,7 @@ const HomeScreen = (props) => {
 			<Box component='body'>
 				<CreatePost />
 				{posts.map((post) => {
-					return <Post id={post.id} image='./tempimages/1116286.jpg' />;
+					return <Post id={post._id} post={post} />;
 				})}
 			</Box>
 		</>
