@@ -3,10 +3,15 @@ import { Box } from "@mui/system";
 import { CreatePost } from "../Components/CreatePost.js";
 import Post from "../Components/Post.js";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
 	const [posts, setPosts] = useState([]);
-
+	const navigate = useNavigate();
+	const sendToSingleScreen = (event) => {
+		props.changeImage("./tempimages/1116286.jpg");
+		navigate("/comment");
+	};
 	useEffect(() => {
 		const fetchPosts = async () => {
 			const { data } = await axios.get("/api/posts");

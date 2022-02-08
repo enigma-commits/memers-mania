@@ -35,7 +35,9 @@ const ResponsiveAppBar = () => {
                 mr: 2,
                 display: { xs: "none", md: "flex" },
                 color: "#d7d3ce",
+                cursor: "pointer",
               }}
+              onClick={sendUserToDashboard}
             >
               Memers Mania
             </Typography>
