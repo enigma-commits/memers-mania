@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useCallback } from "react";
 import Card from "@mui/material/Card";
 import { Box } from "@mui/system";
 import CardContent from "@mui/material/CardContent";
@@ -13,11 +13,11 @@ import { CardActions } from "@mui/material";
 import "../App.css";
 import Tooltip from "@mui/material/Tooltip";
 export default function SinglePost(props) {
-  const inputEl = useRef(null);
-  const focusOnCommentBox = (event) => {
-    console.log("focus on comment box called");
-    inputEl.current.focus();
-  };
+  const focusOnCommentBox = useCallback((inputElement) => {
+    if (inputElement) {
+      inputElement.focus();
+    }
+  }, []);
   return (
     <Box>
       <Card
