@@ -3,12 +3,12 @@ import React from "react";
 import SinglePost from "../Components/SinglePost";
 import { Comment } from "../Components/Comment";
 import { CommentBox } from "../Components/CommentBox";
-
-export const SinglePostScreen = () => {
+import useFocus from "react";
+export const SinglePostScreen = (props) => {
+  //const [inputRef, setInputFocus] = useFocus();
   return (
     <Box component="div">
-      <SinglePost image={"./tempimages/1116286.jpg"} />
-      <CommentBox />
+      <SinglePost image={props.image} />
       <Comment />
       <Comment />
       <Comment />
