@@ -3,7 +3,13 @@ import { IconButton, Typography, Divider, Grid } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import UserPost from "./UserPost";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 export function Profile({ image }) {
+  const navigate = useNavigate();
+  const logout = ()=>{
+    localStorage.removeItem("loginData");
+    navigate("/");
+  }
   return (
     <Box
       variant="div"
@@ -31,12 +37,12 @@ export function Profile({ image }) {
         </Box>
         <Box component="section" sx={{ pl: "0%", flexGrow: "2" }}>
           <Typography variant="h4" sx={{ color: "#e6ebe7" }}>
-            This is akhilesh singh bhadauria
+            This is {localStorage.getItem("loginData")}
           </Typography>
         </Box>
         <Box>
           <IconButton>
-            <LogoutIcon fontSize="large" sx={{ color: "#e6ebe7" }} />
+            <LogoutIcon fontSize="large" sx={{ color: "#e6ebe7" }} onClick={logout}/>
           </IconButton>
         </Box>
       </Box>

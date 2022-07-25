@@ -6,6 +6,7 @@ const router = express.Router();
 const Post = mongoose.model("Post");
 const User = mongoose.model("User");
 
+router.post("/signup")
 router.get("/", (req, res) => {
 	res.send("hello from postRoutes");
 });

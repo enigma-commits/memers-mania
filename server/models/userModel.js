@@ -11,15 +11,11 @@ const userSchema = mongoose.Schema(
 			required: true,
 			unique: true,
 		},
-		password: {
+		imageUrl:{type:String, required:true},
+		jwtToken:{
 			type: String,
 			required: true,
-		},
-		isAdmin: {
-			type: Boolean,
-			required: true,
-			default: false,
-		},
+		}
 	},
 	{
 		timestamps: true,

@@ -12,14 +12,14 @@ const HomeScreen = (props) => {
 		props.changeImage("./tempimages/1116286.jpg");
 		navigate("/comment");
 	};
-	useEffect(() => {
-		const fetchPosts = async () => {
-			const { data } = await axios.get("/api/posts");
-			setPosts(data);
-		};
-		fetchPosts();
-		console.log("first");
-	}, []);
+	// useEffect(() => {
+	// 	const fetchPosts = async () => {
+	// 		const { data } = await axios.get("/api/posts");
+	// 		setPosts(data);
+	// 	};
+	// 	fetchPosts();
+	// 	console.log("first");
+	// }, []);
 
 	return (
 		<>

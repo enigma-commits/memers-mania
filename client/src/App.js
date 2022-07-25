@@ -9,12 +9,13 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SinglePostScreen } from "./Screens/SinglePostScreen";
 import { GoogleLogin } from "react-google-login";
 import { Typography } from "@mui/material";
-import { gapi } from "gapi-script";
+import axios from "axios";
 
 
 
 export default function App() {
   const [image, changeImage] = useState();
+  const [accessToken, setAccessToken] = useState();
 
   // Get data from the localStorage regarding the login
   const [loginData, setLoginData] = useState(
@@ -22,7 +23,12 @@ export default function App() {
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
-
+  // Setup axios with auth authorization header;
+  const authAxios = axios.create({
+    headers:{
+      Authorization:`Bearer ${accessToken}`
+    }
+  })
   // Handle login Failure function
   const handleFailure = (result) => {
     console.log(result);
@@ -30,24 +36,41 @@ export default function App() {
 
   // Handle login function to call the api.
   const handleLogin = async (googleData) => {
-    const res = await fetch("/api/google-login", {
-      method: "POST",
-      body: JSON.stringify({
-        token: googleData.tokenId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    setLoginData(data);
-    localStorage.setItem("loginData", JSON.stringify(data));
+    async function fetchUser() {
+			try {
+				const response = await axios.post("/api/users/google-login",{
+          token: googleData.tokenId,
+					headers: { "Content-Type": "application/json" },
+				});
+				const foundUser = response.data.name;
+        console.log(response.data)
+        setAccessToken(response.data.jwtToken);
+        console.log(response.data.jwtToken);
+				localStorage.setItem("loginData", JSON.stringify(foundUser));
+				setLoginData(foundUser)
+        console.log(foundUser)
+			} catch (err) {
+				console.log(err);
+			}
+		}
+    fetchUser()
+    // const res = await fetch("/api/google-login", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     token: googleData.tokenId,
+    //   }),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    // const data = await res.json();
+    // setLoginData(data);
+    // localStorage.setItem("loginData", JSON.stringify(data));
   };
   const handleLogout = () => {
     localStorage.removeItem("loginData");
     setLoginData(null);
   };
-
   return (
     <Box>
       {loginData ? (
