@@ -2,6 +2,7 @@ import { Box } from "@mui/system";
 import { IconButton, Typography, Divider, Grid } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import UserPost from "./UserPost";
+import React from "react";
 export function Profile({ image }) {
   return (
     <Box
