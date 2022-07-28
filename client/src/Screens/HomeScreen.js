@@ -4,33 +4,61 @@ import { CreatePost } from "../Components/CreatePost.js";
 import Post from "../Components/Post.js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import SinglePost from "../Components/SinglePost.js";
+import NoMediaPost from "../Components/NoMediaPost.js";
 
 const HomeScreen = (props) => {
-	const [posts, setPosts] = useState([]);
-	const navigate = useNavigate();
-	const sendToSingleScreen = (event) => {
-		props.changeImage("./tempimages/1116286.jpg");
-		navigate("/comment");
-	};
-	// useEffect(() => {
-	// 	const fetchPosts = async () => {
-	// 		const { data } = await axios.get("/api/posts");
-	// 		setPosts(data);
-	// 	};
-	// 	fetchPosts();
-	// 	console.log("first");
-	// }, []);
+    const [accessToken, setAccessToken] = useState(
+        localStorage.getItem("loginData")
+            ? JSON.parse(localStorage.getItem("loginData")).user.jwtToken
+            : null,
+    );
+    const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
+    const sendToSingleScreen = (event) => {
+        props.changeImage("./tempimages/1116286.jpg");
+        navigate("/comment");
+    };
+    const authAxios = axios.create({
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
 
-	return (
-		<>
-			<Box component='body'>
-				<CreatePost />
-				{posts.map((post) => {
-					return <Post id={post.id} image='./tempimages/1116286.jpg' />;
-				})}
-			</Box>
-		</>
-	);
+    // Fetch All the Posts.
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const { data } = await authAxios.get("/api/posts/");
+            setPosts(data);
+        };
+        fetchPosts();
+        posts.reverse();
+        console.log(posts);
+    }, []);
+    return (
+        <>
+            <Box component="body">
+                <CreatePost />
+                {/* <NoMediaPost /> */}
+                {posts
+                    .slice(0)
+                    .reverse()
+                    .map((post) => {
+                        return (
+                            <NoMediaPost
+                                title={post.title}
+                                body={post.body}
+                                id={post._id}
+                                setPostId={props.setPostId}
+                                upVote={post.upVote}
+                                downVote={post.downVote}
+                                comments={post.comments}
+                            />
+                        );
+                    })}
+            </Box>
+        </>
+    );
 };
 
 export default HomeScreen;

@@ -4,65 +4,101 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import UserPost from "./UserPost";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-export function Profile({ image }) {
-  const navigate = useNavigate();
-  const logout = ()=>{
-    localStorage.removeItem("loginData");
-    navigate("/");
-  }
-  return (
-    <Box
-      variant="div"
-      sx={{
-        ml: "25%",
-        mr: "25%",
-        mt: "1%",
-        pt: "1%",
-        pb: "5%",
-        backgroundColor: "#242424",
-      }}
-    >
-      <Box
-        component="header"
-        sx={{ display: "flex", mt: "5%", ml: "10%", mr: "0%", mb: "4%" }}
-      >
-        <Box component="div" sx={{ flexGrow: "1", flexBasis: "0%", mr: "15%" }}>
-          <img
-            src={image}
-            alt="profile"
-            width="150px"
-            height="150px"
-            style={{ borderRadius: "75px" }}
-          />
+export function Profile() {
+    const navigate = useNavigate();
+    const logout = () => {
+        localStorage.removeItem("loginData");
+        localStorage.removeItem("accessToken");
+        alert("You have successfully Logged out.");
+        navigate("/");
+        window.location.reload();
+    };
+    let picture = JSON.parse(localStorage.getItem("loginData"));
+    if (picture) picture = picture.user.imageUrl;
+    return (
+        <Box
+            variant="div"
+            sx={{
+                ml: "25%",
+                mr: "25%",
+                mt: "1%",
+                pt: "1%",
+                pb: "5%",
+                backgroundColor: "#242424",
+            }}
+        >
+            <Box
+                component="header"
+                sx={{
+                    display: "flex",
+                    mt: "5%",
+                    ml: "10%",
+                    mr: "0%",
+                    mb: "4%",
+                }}
+            >
+                <Box
+                    component="div"
+                    sx={{ flexGrow: "1", flexBasis: "0%", mr: "15%" }}
+                >
+                    <img
+                        src={picture}
+                        alt="profile"
+                        width="150px"
+                        height="150px"
+                        style={{ borderRadius: "75px" }}
+                    />
+                </Box>
+                <Box component="section" sx={{ pl: "0%", flexGrow: "2" }}>
+                    <Typography variant="h4" sx={{ color: "#e6ebe7" }}>
+                        This is{" "}
+                        {
+                            JSON.parse(localStorage.getItem("loginData")).user
+                                .name
+                        }
+                    </Typography>
+                </Box>
+                <Box>
+                    <IconButton
+                        sx={{ display: "flex", flexDirection: "column" }}
+                    >
+                        <LogoutIcon
+                            fontSize="large"
+                            sx={{ color: "#e6ebe7" }}
+                            onClick={logout}
+                        />
+                        <br />
+                        <Typography
+                            variant="p"
+                            sx={{ color: "#e6ebe7", fontSize: "50%" }}
+                        >
+                            Logout
+                        </Typography>
+                    </IconButton>
+                </Box>
+            </Box>
+            <Divider sx={{ backgroundColor: "#e6ebe7" }} />
+            <Box>
+                <Grid
+                    container
+                    columnGap={3}
+                    rowGap={2}
+                    sx={{ mt: "3%", ml: "15%" }}
+                >
+                    <Grid item xs={4}>
+                        <UserPost />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <UserPost />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <UserPost />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <UserPost />
+                    </Grid>
+                </Grid>
+            </Box>
         </Box>
-        <Box component="section" sx={{ pl: "0%", flexGrow: "2" }}>
-          <Typography variant="h4" sx={{ color: "#e6ebe7" }}>
-            This is {localStorage.getItem("loginData")}
-          </Typography>
-        </Box>
-        <Box>
-          <IconButton>
-            <LogoutIcon fontSize="large" sx={{ color: "#e6ebe7" }} onClick={logout}/>
-          </IconButton>
-        </Box>
-      </Box>
-      <Divider sx={{ backgroundColor: "#e6ebe7" }} />
-      <Box>
-        <Grid container columnGap={3} rowGap={2} sx={{ mt: "3%", ml: "15%" }}>
-          <Grid item xs={4}>
-            <UserPost />
-          </Grid>
-          <Grid item xs={4}>
-            <UserPost />
-          </Grid>
-          <Grid item xs={4}>
-            <UserPost />
-          </Grid>
-          <Grid item xs={4}>
-            <UserPost />
-          </Grid>
-        </Grid>
-      </Box>
-    </Box>
-  );
+    );
 }

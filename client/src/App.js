@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import HomeScreen from "./Screens/HomeScreen.js";
 import CreatePostScreen from "./Screens/CreatePostScreen.js";
 import DashBoardScreen from "./Screens/DashBoardScreen.js";
@@ -7,112 +7,149 @@ import { Box } from "@mui/system";
 import ResponsiveAppBar from "./Components/Navbar/ResponsiveAppBar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SinglePostScreen } from "./Screens/SinglePostScreen";
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
+import { GoogleLogin } from "@react-oauth/google";
 import { Typography } from "@mui/material";
 import axios from "axios";
+import NoMediaComment from "./Components/NoMediaComment";
 
-
-
+// App Component.
 export default function App() {
-  const [image, changeImage] = useState();
-  const [accessToken, setAccessToken] = useState();
+    // Create PostId to store the state.
+    const [postId, setPostId] = useState();
+    console.log(postId);
+    // Image (not used anywhere).
+    const [image, changeImage] = useState();
 
-  // Get data from the localStorage regarding the login
-  const [loginData, setLoginData] = useState(
-    localStorage.getItem("loginData")
-      ? JSON.parse(localStorage.getItem("loginData"))
-      : null
-  );
-  // Setup axios with auth authorization header;
-  const authAxios = axios.create({
-    headers:{
-      Authorization:`Bearer ${accessToken}`
+    // Access the jwt token from the local storage If exists.
+    const [accessToken, setAccessToken] = useState(
+        localStorage.getItem("loginData")
+            ? JSON.parse(localStorage.getItem("loginData")).user.jwtToken
+            : null,
+    );
+    // Get data from the localStorage regarding the login
+    const [loginData, setLoginData] = useState(
+        localStorage.getItem("loginData")
+            ? JSON.parse(localStorage.getItem("loginData"))
+            : null,
+    );
+    // Setup axios with auth authorization header;
+    const authAxios = axios.create({
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+    // Handle login Failure function
+    const handleFailure = (result) => {
+        console.log(result);
+    };
+    // Handle login function to call the api.
+    const handleLogin = async (googleData) => {
+        async function fetchUser() {
+            try {
+                const response = await authAxios.post(
+                    "/api/users/google-login",
+                    {
+                        token: googleData.credential,
+                        headers: { "Content-Type": "application/json" },
+                    },
+                );
+                const foundUser = response.data;
+                setAccessToken(response.data.user.jwtToken);
+                localStorage.setItem("loginData", JSON.stringify(foundUser));
+                setLoginData(foundUser);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        fetchUser();
+    };
+    // If we found some access token then verify if it is valid.
+    if (accessToken) {
+        async function verifyToken() {
+            await authAxios.post("/api/users/verify", accessToken).then(
+                (response) => {
+                    setLoginData(response.data.name);
+                },
+                (error) => {
+                    console.log(error);
+                    setLoginData();
+                    setAccessToken();
+                },
+            );
+        }
+        verifyToken();
     }
-  })
-  // Handle login Failure function
-  const handleFailure = (result) => {
-    console.log(result);
-  };
 
-  // Handle login function to call the api.
-  const handleLogin = async (googleData) => {
-    async function fetchUser() {
-			try {
-				const response = await axios.post("/api/users/google-login",{
-          token: googleData.tokenId,
-					headers: { "Content-Type": "application/json" },
-				});
-				const foundUser = response.data.name;
-        console.log(response.data)
-        setAccessToken(response.data.jwtToken);
-        console.log(response.data.jwtToken);
-				localStorage.setItem("loginData", JSON.stringify(foundUser));
-				setLoginData(foundUser)
-        console.log(foundUser)
-			} catch (err) {
-				console.log(err);
-			}
-		}
-    fetchUser()
-    // const res = await fetch("/api/google-login", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     token: googleData.tokenId,
-    //   }),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // const data = await res.json();
-    // setLoginData(data);
-    // localStorage.setItem("loginData", JSON.stringify(data));
-  };
-  const handleLogout = () => {
-    localStorage.removeItem("loginData");
-    setLoginData(null);
-  };
-  return (
-    <Box>
-      {loginData ? (
-        <Router>
-          <Box
-            sx={{
-              backgroundColor: "#1c1f20",
-              minHeight: "100vh",
-            }}
-          >
-            <Box
-              component="header"
-              sx={{ position: "sticky", top: 0, zIndex: 50 }}
-            >
-              <ResponsiveAppBar />
-            </Box>
-            <Routes>
-              <Route
-                path="/"
-                element={<HomeScreen changeImage={changeImage} />}
-              />
-              <Route path="/profile" element={<DashBoardScreen />} />
-              <Route path="/create" element={<CreatePostScreen />} />
-              <Route
-                path="/comment"
-                element={<SinglePostScreen image={image} />}
-              />
-            </Routes>
-          </Box>
-        </Router>
-      ) : (
-        <Box sx={{display:'flex', justifyContent:'center', minHeight:'100vh', alignItems:'center', backgroundColor:'#A5C9CA', flexDirection:'column'}}>
-          <Typography variant="h2" component="h2">Login with Google</Typography><br/>
-          <GoogleLogin
-            clientId={process.env.REACT_APP_CLIENT_ID}
-            buttonText="Login/Sign Up with google"
-            onSuccess={handleLogin}
-            onFailure={handleFailure}
-            cookiePolicy={"single_host_origin"}
-          />
+    // Render the correct page.
+    return (
+        <Box>
+            {accessToken ? (
+                <Router>
+                    <Box
+                        sx={{
+                            backgroundColor: "#1c1f20",
+                            minHeight: "100vh",
+                        }}
+                    >
+                        <Box
+                            component="header"
+                            sx={{ position: "sticky", top: 0, zIndex: 50 }}
+                        >
+                            <ResponsiveAppBar />
+                        </Box>
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={
+                                    <HomeScreen
+                                        changeImage={changeImage}
+                                        setPostId={setPostId}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/api/users/profile"
+                                element={<DashBoardScreen />}
+                            />
+                            <Route
+                                path="/api/posts/create"
+                                element={<CreatePostScreen />}
+                            />
+                            <Route
+                                path="/api/posts/comment"
+                                element={<SinglePostScreen image={image} />}
+                            />
+                            <Route
+                                path="/api/posts/comment/:postId"
+                                element={<NoMediaComment postId={postId} />}
+                            />
+                        </Routes>
+                    </Box>
+                </Router>
+            ) : (
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        minHeight: "100vh",
+                        alignItems: "center",
+                        backgroundColor: "#A5C9CA",
+                        flexDirection: "column",
+                    }}
+                >
+                    <Typography variant="h2" component="h2">
+                        Login with Google
+                    </Typography>
+                    <br />
+
+                    <GoogleLogin
+                        onSuccess={handleLogin}
+                        onError={handleFailure}
+                        useOneTap
+                    />
+                </Box>
+            )}
         </Box>
-      )}
-    </Box>
-  );
+    );
 }
