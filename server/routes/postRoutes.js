@@ -36,6 +36,13 @@ router.get("/", verifyToken, async (req, res) => {
 // Create the posts from the users.
 router.post("/create", verifyToken, async (req, res) => {
     const data = req.body;
+    if (data.image) {
+        data.image = data.image.replace(
+            "upload/",
+            "upload/w_498,h_498,c_scale/",
+        );
+    }
+    // console.log(data.image);
     const post = new Post(data);
     const savedPost = await post.save();
     res.status(200).send({ Message: `Successfully Posted`, post: data });

@@ -3,7 +3,6 @@ import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import FileUpload from "react-material-file-upload";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +11,8 @@ const CreatePostScreen = () => {
     const [tab, setTab] = useState(0);
     const [postTitle, setPostTitle] = useState("");
     const [postBody, setPostBody] = useState("");
-    const [postImage, setPostImage] = useState([]);
+    const [postImage, setPostImage] = useState({});
+    const [imageUrl, setImageUrl] = useState("");
     const func = (e) => {
         setPostImage(e);
     };
@@ -23,23 +23,44 @@ const CreatePostScreen = () => {
     const _id = localStorage.getItem("loginData")
         ? JSON.parse(localStorage.getItem("loginData")).user._id
         : null;
+    const user = localStorage.getItem("loginData")
+        ? JSON.parse(localStorage.getItem("loginData")).user
+        : null;
     // Setup axios with auth authorization header;
     const authAxios = axios.create({
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },
     });
+    const upLoadImage = async () => {
+        const data = new FormData();
+        data.append("file", postImage);
+        data.append("upload_preset", process.env.REACT_APP_IMAGE_ID);
+        // data.append("cloud_name", "de9xw1upe");
+        const response = await axios.post(
+            "https://api.cloudinary.com/v1_1/de9xw1upe/image/upload/",
+            data,
+        );
+        setImageUrl(response.data.url);
+        console.log(response.data.url);
+        console.log(imageUrl);
+    };
     const handlePost = async () => {
+        if (!postTitle || !(postBody || imageUrl)) {
+            return;
+        }
         try {
             const post = await authAxios.post("/api/posts/create", {
                 title: postTitle,
                 body: postBody,
                 user: _id,
-                image: "",
+                image: imageUrl,
                 upVote: [],
                 downVote: [],
                 comments: [],
                 numComments: 0,
+                userName: user.name,
+                userImage: user.imageUrl,
             });
             console.log(post.data);
             navigate("/");
@@ -139,15 +160,15 @@ const CreatePostScreen = () => {
                     )}
                     {tab === 1 && (
                         <>
-                            <FileUpload
-                                value={postImage}
-                                onChange={func}
-                                sx={{
-                                    marginTop: "10px",
-                                    borderRadius: "5px",
-                                    backgroundColor: "#948f8f",
+                            <input
+                                type="file"
+                                className="custom-file-input"
+                                onChange={(e) => {
+                                    setPostImage(e.target.files[0]);
                                 }}
+                                id="inputGroupFile01"
                             />
+                            <button onClick={upLoadImage}>submit</button>
                         </>
                     )}
 

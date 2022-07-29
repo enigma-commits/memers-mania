@@ -19,6 +19,7 @@ export default function NoMediaComment(props) {
     const [comment, changeComment] = useState("");
     const [title, setTitle] = useState();
     const [body, setBody] = useState();
+    const [image, setImage] = useState();
     const accessToken = localStorage.getItem("loginData")
         ? JSON.parse(localStorage.getItem("loginData")).user.jwtToken
         : null;
@@ -77,6 +78,7 @@ export default function NoMediaComment(props) {
             setComments(commentData.data.comments);
             setBody(commentData.data.body);
             setTitle(commentData.data.title);
+            setImage(commentData.data.image);
             setCommentNumber(commentData.data.comments.length);
             setDownVote(commentData.data.downVote.length);
             setUpVote(commentData.data.upVote.length);
@@ -131,6 +133,16 @@ export default function NoMediaComment(props) {
                 <CardActionArea sx={{ padding: "5px", borderRadius: "5px" }}>
                     <CardContent>
                         <Typography variant="h5">{title}</Typography>
+                        {image ? (
+                            <CardMedia
+                                component="img"
+                                image={image}
+                                maxHeight="400"
+                                alt="green iguana"
+                            />
+                        ) : (
+                            <Box />
+                        )}
                         <Typography variant="body2" color="text.secondary">
                             {body}
                         </Typography>

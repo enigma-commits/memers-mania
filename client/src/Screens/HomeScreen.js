@@ -53,6 +53,9 @@ const HomeScreen = (props) => {
                                 upVote={post.upVote}
                                 downVote={post.downVote}
                                 comments={post.comments}
+                                image={post.image}
+                                userImage={post.userImage}
+                                user={post.userName}
                             />
                         );
                     })}

@@ -15,6 +15,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter as Route } from "react-router-dom";
 import NoMediaComment from "./NoMediaComment";
+import { Avatar } from "@mui/material";
 
 export default function NoMediaPost(props) {
     const navigate = useNavigate();
@@ -32,6 +33,7 @@ export default function NoMediaPost(props) {
             Authorization: `Bearer ${accessToken}`,
         },
     });
+
     // Initialize Upvote, Down votes and Comments.
     const [upVote, setUpVote] = useState(props.upVote.length);
     const [downVote, setDownVote] = useState(props.downVote.length);
@@ -72,6 +74,7 @@ export default function NoMediaPost(props) {
             console.log(err);
         }
     };
+
     return (
         <Box variant="div">
             <Card
@@ -86,9 +89,37 @@ export default function NoMediaPost(props) {
             >
                 <CardActionArea sx={{ padding: "5px", borderRadius: "5px" }}>
                     <CardContent>
+                        <Box variant="div">
+                            <Avatar
+                                sx={{
+                                    bgcolor: "deepOrange[500]",
+                                    display: "inline-block",
+                                }}
+                                src={props.userImage}
+                            />
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    marginLeft: "2%",
+                                    display: "inline",
+                                }}
+                            >
+                                {props.user}
+                            </Typography>
+                        </Box>
                         <Typography gutterBottom variant="h5" component="div">
                             {props.title}
                         </Typography>
+                        {props.image ? (
+                            <CardMedia
+                                component="img"
+                                image={props.image}
+                                maxHeight="400"
+                                alt="green iguana"
+                            />
+                        ) : (
+                            <Box />
+                        )}
                         <Typography variant="body2" color="text.secondary">
                             {props.body}
                         </Typography>
