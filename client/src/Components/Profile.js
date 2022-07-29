@@ -2,10 +2,15 @@ import { Box } from "@mui/system";
 import { IconButton, Typography, Divider, Grid } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import UserPost from "./UserPost";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import NoMediaPost from "./NoMediaPost";
+import axios from "axios";
 export function Profile() {
     const navigate = useNavigate();
+    const userId = localStorage.getItem("loginData")
+        ? JSON.parse(localStorage.getItem("loginData")).user._id
+        : null;
     const logout = () => {
         localStorage.removeItem("loginData");
         localStorage.removeItem("accessToken");
@@ -13,6 +18,30 @@ export function Profile() {
         navigate("/");
         window.location.reload();
     };
+    const accessToken = localStorage.getItem("loginData")
+        ? JSON.parse(localStorage.getItem("loginData")).user.jwtToken
+        : null;
+    const [posts, setPosts] = useState([]);
+    // Add the token.
+    const authAxios = axios.create({
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+    // Fetch All the Posts.
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const { data } = await authAxios.get("/api/posts/");
+
+            const copyPosts = data.filter((e) => {
+                return e.user === userId;
+            });
+
+            setPosts(copyPosts);
+        };
+        fetchPosts();
+    }, []);
+    console.log(posts);
     let picture = JSON.parse(localStorage.getItem("loginData"));
     if (picture) picture = picture.user.imageUrl;
     return (
@@ -79,7 +108,26 @@ export function Profile() {
             </Box>
             <Divider sx={{ backgroundColor: "#e6ebe7" }} />
             <Box>
-                <Grid
+                {posts
+                    .slice(0)
+                    .reverse()
+                    .map((post) => {
+                        return (
+                            <NoMediaPost
+                                title={post.title}
+                                body={post.body}
+                                id={post._id}
+                                // setPostId={props.setPostId}
+                                upVote={post.upVote}
+                                downVote={post.downVote}
+                                comments={post.comments}
+                                image={post.image}
+                                userImage={post.userImage}
+                                user={post.userName}
+                            />
+                        );
+                    })}
+                {/* <Grid
                     container
                     columnGap={3}
                     rowGap={2}
@@ -88,16 +136,7 @@ export function Profile() {
                     <Grid item xs={4}>
                         <UserPost />
                     </Grid>
-                    <Grid item xs={4}>
-                        <UserPost />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <UserPost />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <UserPost />
-                    </Grid>
-                </Grid>
+                </Grid> */}
             </Box>
         </Box>
     );

@@ -93,6 +93,9 @@ export default function NoMediaComment(props) {
 
     // Post the comment.
     const postComment = async (props) => {
+        if (!comment) {
+            return;
+        }
         const userName = localStorage.getItem("loginData")
             ? JSON.parse(localStorage.getItem("loginData")).user.name
             : null;
