@@ -53,7 +53,7 @@ router.get("/comments/:id", verifyToken, async (req, res) => {
     try {
         const id = req.params.id;
         const user = await Post.find({ _id: id });
-        console.log(user[0]);
+        // console.log(user[0]);
         res.status(200).send(user[0]);
     } catch (err) {
         res.send(err);
@@ -70,7 +70,7 @@ router.post("/comments/:id", verifyToken, async (req, res) => {
             { comments: req.body.comments },
             { new: true },
         );
-        console.log("after this");
+        // console.log("after this");
         // console.log(req.body);
         // console.log(post.comments);
         res.status(200).send(post.comments);
@@ -133,7 +133,7 @@ router.post("/downvote/:id", verifyToken, async (req, res) => {
             },
             { new: true },
         );
-        console.log(update);
+        // console.log(update);
         res.status(200).send({
             upVote: upVote.length,
             downVote: downVote.length,
