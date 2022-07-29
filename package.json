@@ -9,10 +9,9 @@
 		"nodemon": "^2.0.15"
 	},
 	"scripts": {
-		"start": "node client/src/index.js",
 		"server": "nodemon server/index --ignore client",
 		"client": "npm start --prefix client",
-		"dev": "concurrently \"npm run server\" \"npm run client\""
+		"start": "concurrently \"npm run server\" \"npm run client\""
 	},
 	"repository": {
 		"type": "git",
